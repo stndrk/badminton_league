@@ -1,0 +1,329 @@
+<% content_for :title, "Sign In — Badminton League" %>
+
+<% content_for :head do %>
+<style>
+  body { overflow: hidden; }
+
+  .login-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100vh;
+  }
+
+  .brand-panel {
+    background: var(--dark-1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px;
+    overflow: hidden;
+  }
+
+  .court-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image:
+      linear-gradient(var(--lime) 1px, transparent 1px),
+      linear-gradient(90deg, var(--lime) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .court-arc {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 300px;
+    border-top: 2px solid rgba(198,241,53,0.12);
+    border-radius: 50% 50% 0 0;
+  }
+
+  .court-center-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(198,241,53,0.08);
+  }
+
+  .brand-logo {
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-logo .badminton-icon {
+    font-size: 32px;
+    color: var(--lime);
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .brand-logo .brand-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 3px;
+    color: var(--text-pri);
+    line-height: 1;
+  }
+
+  .brand-logo .brand-name span { color: var(--lime); }
+
+  .brand-hero {
+    position: relative;
+    z-index: 1;
+  }
+
+  .brand-hero h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--text-pri);
+    margin-bottom: 16px;
+  }
+
+  .brand-hero h2 .accent { color: var(--lime); }
+
+  .brand-hero p {
+    color: var(--text-sec);
+    font-size: 15px;
+    max-width: 320px;
+    line-height: 1.7;
+  }
+
+  .brand-stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 32px;
+  }
+
+  .brand-stat .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--lime);
+    line-height: 1;
+  }
+
+  .brand-stat .lbl {
+    font-size: 11px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  .form-panel {
+    background: var(--dark-0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+  }
+
+  .form-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--lime), transparent);
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-card .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 12px;
+  }
+
+  .login-card h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 2px;
+    color: var(--text-pri);
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  .login-card .subtitle {
+    color: var(--text-sec);
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  .field-group { margin-bottom: 20px; }
+
+  .field-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-sec);
+    margin-bottom: 8px;
+  }
+
+  .field-group .input-wrap {
+    position: relative;
+  }
+
+  .field-group .input-wrap i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  .field-group input {
+    width: 100%;
+    background: var(--dark-2);
+    border: 1.5px solid var(--dark-4);
+    border-radius: var(--radius);
+    padding: 13px 14px 13px 42px;
+    color: var(--text-pri);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .field-group input::placeholder { color: var(--text-dim); }
+
+  .field-group input:focus {
+    border-color: var(--lime);
+    background: var(--dark-3);
+  }
+
+  .btn-login {
+    width: 100%;
+    background: var(--lime);
+    color: var(--dark-0);
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    margin-top: 8px;
+  }
+
+  .btn-login:hover  { background: var(--lime-dim); }
+  .btn-login:active { transform: scale(0.98); }
+
+  .form-footer {
+    text-align: center;
+    margin-top: 28px;
+    color: var(--text-sec);
+    font-size: 13px;
+  }
+
+  .form-footer a {
+    color: var(--lime);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .error-banner {
+    background: rgba(255,77,77,0.12);
+    border: 1px solid rgba(255,77,77,0.3);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    color: #ff7070;
+    font-size: 13px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+</style>
+<% end %>
+
+<div class="login-wrap">
+
+  <!-- Brand Panel -->
+  <div class="brand-panel">
+    <div class="court-bg"></div>
+    <div class="court-arc"></div>
+    <div class="court-center-line"></div>
+
+    <div class="brand-logo">
+      <i class="bi bi-bullseye badminton-icon"></i>
+      <div class="brand-name">BADMINTON<span>LEAGUE</span></div>
+    </div>
+
+    <div class="brand-hero">
+      <h2>TRACK.<br><span class="accent">COMPETE.</span><br>DOMINATE.</h2>
+      <p>A professional badminton league management platform. Record matches, track rankings, and manage your league in one place.</p>
+    </div>
+
+    <div class="brand-stats">
+      <div class="brand-stat">
+        <div class="num">∞</div>
+        <div class="lbl">Leagues</div>
+      </div>
+      <div class="brand-stat">
+        <div class="num">01</div>
+        <div class="lbl">App</div>
+      </div>
+      <div class="brand-stat">
+        <div class="num">100%</div>
+        <div class="lbl">Competitive</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Panel -->
+  <div class="form-panel">
+    <div class="login-card">
+
+      <div class="eyebrow">Welcome back</div>
+      <h1>SIGN IN</h1>
+      <p class="subtitle">Enter your credentials to access your league dashboard.</p>
+
+      <% if flash[:alert] %>
+        <div class="error-banner">
+          <i class="bi bi-exclamation-circle-fill"></i>
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
+
+      <%= form_tag session_path, method: :post do %>
+        <div class="field-group">
+          <label>Email Address</label>
+          <div class="input-wrap">
+            <i class="bi bi-envelope"></i>
+            <%= email_field_tag :email, params[:email], placeholder: "you@example.com", autocomplete: "email" %>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <i class="bi bi-lock"></i>
+            <%= password_field_tag :password, nil, placeholder: "••••••••", autocomplete: "current-password" %>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login">ENTER THE COURT →</button>
+      <% end %>
+
+    </div>
+  </div>
+
+</div>
