@@ -49,7 +49,7 @@ class Match < ApplicationRecord
 
   def players_are_league_members
     league_member_ids = league.memberships.pluck(:user_id).to_set
-    [winner_id, loser_id].each do |uid|
+    [ winner_id, loser_id ].each do |uid|
       unless league_member_ids.include?(uid)
         errors.add(:base, "Player #{uid} is not a member of this league")
       end

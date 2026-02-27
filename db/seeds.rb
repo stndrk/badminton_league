@@ -33,7 +33,7 @@ players_data = [
   { name: "Rohit Gupta",    email: "rohit@badminton.org.com",   mobile: "9810001005", dob: "1994-06-18" },
   { name: "Ananya Das",     email: "ananya@badminton.org.com",  mobile: "9810001006", dob: "1998-09-14" },
   { name: "Karan Malhotra", email: "karan@badminton.org.com",   mobile: "9810001007", dob: "1996-04-25" },
-  { name: "Divya Iyer",     email: "divya@badminton.org.com",   mobile: "9810001008", dob: "1992-12-08" },
+  { name: "Divya Iyer",     email: "divya@badminton.org.com",   mobile: "9810001008", dob: "1992-12-08" }
 ]
 
 players = players_data.map do |pd|
@@ -57,7 +57,7 @@ puts "✓  3 leagues created"
 
 # ── Memberships ────────────────────────────────────
 # All leagues get the admin as league-admin
-[office, weekend, open_cup].each { |l| l.add_member(admin, role: :admin) }
+[ office, weekend, open_cup ].each { |l| l.add_member(admin, role: :admin) }
 
 # Office league — all 8 players
 players.each { |p| office.add_member(p) }
@@ -83,38 +83,38 @@ end
 
 # ── Office league matches (20) ─────────────────────
 [
-  [0,1],[2,3],[4,5],[6,7],[0,2],[1,3],
-  [4,6],[5,7],[0,3],[2,4],[1,5],[3,6],
-  [0,4],[2,6],[1,7],[3,5],[0,6],[1,4],
-  [2,7],[5,6]
-].each_with_index do |(w,l), i|
+  [ 0, 1 ], [ 2, 3 ], [ 4, 5 ], [ 6, 7 ], [ 0, 2 ], [ 1, 3 ],
+  [ 4, 6 ], [ 5, 7 ], [ 0, 3 ], [ 2, 4 ], [ 1, 5 ], [ 3, 6 ],
+  [ 0, 4 ], [ 2, 6 ], [ 1, 7 ], [ 3, 5 ], [ 0, 6 ], [ 1, 4 ],
+  [ 2, 7 ], [ 5, 6 ]
+].each_with_index do |(w, l), i|
   make_match(office, players[w], players[l], 25 - i)
 end
 puts "✓  #{office.matches.count} matches → #{office.name}"
 
 # ── Weekend Warriors matches (10) ─────────────────
 [
-  [0,1],[2,3],[4,0],[1,2],[3,4],
-  [0,3],[2,4],[1,4],[0,2],[3,1]
-].each_with_index do |(w,l), i|
+  [ 0, 1 ], [ 2, 3 ], [ 4, 0 ], [ 1, 2 ], [ 3, 4 ],
+  [ 0, 3 ], [ 2, 4 ], [ 1, 4 ], [ 0, 2 ], [ 3, 1 ]
+].each_with_index do |(w, l), i|
   make_match(weekend, players[w], players[l], 14 - i)
 end
 puts "✓  #{weekend.matches.count} matches → #{weekend.name}"
 
 # ── Open Championship matches (15) ────────────────
 [
-  [0,7],[1,6],[2,5],[3,4],[0,5],
-  [1,4],[2,7],[3,6],[0,3],[1,2],
-  [4,7],[5,6],[0,2],[1,7],[3,5]
-].each_with_index do |(w,l), i|
+  [ 0, 7 ], [ 1, 6 ], [ 2, 5 ], [ 3, 4 ], [ 0, 5 ],
+  [ 1, 4 ], [ 2, 7 ], [ 3, 6 ], [ 0, 3 ], [ 1, 2 ],
+  [ 4, 7 ], [ 5, 6 ], [ 0, 2 ], [ 1, 7 ], [ 3, 5 ]
+].each_with_index do |(w, l), i|
   make_match(open_cup, players[w], players[l], 18 - i)
 end
 puts "✓  #{open_cup.matches.count} matches → #{open_cup.name}"
 
 # ── Friendly / global matches (no league) ─────────
 [
-  [0,1],[2,3],[4,5],[6,7],[0,5],[2,7]
-].each_with_index do |(w,l), i|
+  [ 0, 1 ], [ 2, 3 ], [ 4, 5 ], [ 6, 7 ], [ 0, 5 ], [ 2, 7 ]
+].each_with_index do |(w, l), i|
   Match.create!(
     league:     nil,
     winner:     players[w],

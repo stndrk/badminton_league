@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   # DELETE /users/:id
   def destroy
     if @user == current_user
-      render json: { success: false, errors: ["Cannot delete yourself"] },
+      render json: { success: false, errors: [ "Cannot delete yourself" ] },
              status: :unprocessable_entity
       return
     end

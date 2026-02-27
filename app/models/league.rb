@@ -18,6 +18,6 @@ class League < ApplicationRecord
   end
 
   def ranked_members
-    members.includes(:won_matches, :lost_matches).sort_by { |u| [-u.win_percentage(self), -u.wins_count(self)] }
+    members.includes(:won_matches, :lost_matches).sort_by { |u| [ -u.win_percentage(self), -u.wins_count(self) ] }
   end
 end

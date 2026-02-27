@@ -1,5 +1,5 @@
 class LeaguesController < ApplicationController
-  before_action :require_admin!                  
+  before_action :require_admin!
   before_action :set_league, only: %i[show destroy leaderboard]
 
   # GET /leagues
@@ -41,7 +41,7 @@ class LeaguesController < ApplicationController
     stats = @league
               .members
               .includes(:won_matches, :lost_matches)
-              .sort_by { |u| [-u.win_percentage(@league), -u.wins_count(@league)] }
+              .sort_by { |u| [ -u.win_percentage(@league), -u.wins_count(@league) ] }
               .map { |u| u.as_player_json(@league) }
     render json: stats
   end

@@ -22,7 +22,7 @@ class CreateCoreSchema < ActiveRecord::Migration[8.0]
       t.references :league, null: false, foreign_key: true
       t.integer    :role,   null: false, default: 0
       t.timestamps
-      t.index [:user_id, :league_id], unique: true
+      t.index [ :user_id, :league_id ], unique: true
     end
 
     create_table :matches do |t|

@@ -162,19 +162,7 @@ The DB enforces referential integrity on both sides. You can never record a matc
 ---
 
 ## Associations
-
-User ──────────────────────── has_many :memberships
-│ has_many :leagues (through memberships)
-│ has_many :owned_leagues
-│ has_many :won_matches / :lost_matches
-│
-Membership ─── user_id, league_id, role (enum)
-│
-League ──────────────────────── has_many :memberships
-│ has_many :members (through memberships, source: :user)
-│ has_many :matches (optional)
-│
-Match ──── winner_id → User, loser_id → User, league_id (nullable)
+![Login Page Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/associations.png)
 
 ---
 
@@ -246,3 +234,15 @@ All server data the JS needs is embedded once in `<script id="__app__" type="app
 - **Multi-sport** — add `sport` enum to `League` to reuse the entire stack for tennis, table tennis, etc.
 
 * ...
+
+## Images
+
+![Login Page Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/login_page.png)
+
+![Page After Login Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/leagues_after_login.png)
+
+![Leaderboard Page Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/leaderboard.png)
+
+![Players Page Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/players.png)
+
+![Matches Page Screenshot](https://raw.githubusercontent.com/stndrk/badminton_league/main/public/matches.png)
